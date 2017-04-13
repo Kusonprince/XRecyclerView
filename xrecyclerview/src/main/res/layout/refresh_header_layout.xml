@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    >
+
+    <RelativeLayout
+        android:id="@+id/refresh_icon_layout"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="8dp"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/refresh_boy"
+            android:src="@drawable/refresh_boy"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:scaleType="fitEnd"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/refresh_box"
+            android:src="@drawable/refresh_box"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitStart"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/running_boy"
+            android:src="@drawable/refresh_boy1"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/show_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下拉刷新"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        />
+
+</LinearLayout>
