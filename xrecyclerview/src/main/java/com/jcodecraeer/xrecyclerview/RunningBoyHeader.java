@@ -127,12 +127,11 @@ public class RunningBoyHeader extends LinearLayout implements BaseRefreshHeader 
         runAnim.stop();
     }
 
-    public void setBoyBoxParams(float scrollY) {
-        Log.e("params", "scrollY is:" + scrollY);
+    public void setBoyBoxParams() {
         Log.e("params", "mMeasuredHeight is:" + mMeasuredHeight);
         ViewGroup.MarginLayoutParams params1 = (ViewGroup.MarginLayoutParams) mRefreshBoy.getLayoutParams();
         ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) mRefreshBox.getLayoutParams();
-        float scale = scrollY / mMeasuredHeight;
+        float scale = getVisibleHeight() / (float)mMeasuredHeight;
         Log.e("params", "scale is:" + scale);
         Log.e("params", "iconWidth is:" + iconWidth + ", iconTopMax is:" + iconTopMax);
         int width = (int) Math.abs(iconWidth * scale);
@@ -152,8 +151,8 @@ public class RunningBoyHeader extends LinearLayout implements BaseRefreshHeader 
     }
 
     @Override
-    public void onMove(float delta, float scrollY) {
-        setBoyBoxParams(scrollY);
+    public void onMove(float delta) {
+        setBoyBoxParams();
         if(getVisibleHeight() > 0 || delta > 0) {
             setVisibleHeight((int) delta + getVisibleHeight());
             if (mState <= STATE_RELEASE_TO_REFRESH) {

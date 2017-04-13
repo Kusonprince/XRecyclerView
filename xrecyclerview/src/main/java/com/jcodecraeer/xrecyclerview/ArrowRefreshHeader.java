@@ -178,7 +178,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 	}
 
     @Override
-    public void onMove(float delta, float scrollY) {
+    public void onMove(float delta) {
         Log.e("tag", "header onMove:" + delta);
         if(getVisibleHeight() > 0 || delta > 0) {
             setVisibleHeight((int) delta + getVisibleHeight());

@@ -286,7 +286,7 @@ public class XRecyclerView extends RecyclerView {
                 mLastY = ev.getRawY();
                 if (isOnTop() && pullRefreshEnabled && appbarState == AppBarStateChangeListener.State.EXPANDED) {
                     Log.e("tag", "header move event:" + "true");
-                    mRefreshHeader.onMove(deltaY / DRAG_RATE, ev.getRawY() - mFirstY);
+                    mRefreshHeader.onMove(deltaY / DRAG_RATE);
                     if (mRefreshHeader.getVisibleHeight() > 0 && mRefreshHeader.getState() < ArrowRefreshHeader.STATE_REFRESHING) {
                         Log.e("tag", "header touch owner");
                         return false;
@@ -294,7 +294,7 @@ public class XRecyclerView extends RecyclerView {
                 }
                 if (isOnBottom() && loadingMoreEnabled && !isAutoLoadMore) {
                     Log.e("tag", "footer move event:" + "true");
-                    ((LoadingMoreFooter2)mFootView).onMove(-deltaY / DRAG_RATE, getScrollY());
+                    ((LoadingMoreFooter2)mFootView).onMove(-deltaY / DRAG_RATE);
                     if (((LoadingMoreFooter2)mFootView).getVisibleHeight() > 0 && ((LoadingMoreFooter2)mFootView).getState() < ArrowRefreshHeader.STATE_REFRESHING) {
                         Log.e("tag", "footer touch owner");
                         return false;

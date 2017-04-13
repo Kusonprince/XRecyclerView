@@ -10,7 +10,7 @@ interface BaseRefreshHeader {
 	int STATE_REFRESHING = 2;
 	int STATE_DONE = 3;
 
-	void onMove(float delta, float scrollY);
+	void onMove(float delta);
 
 	boolean releaseAction();
 
