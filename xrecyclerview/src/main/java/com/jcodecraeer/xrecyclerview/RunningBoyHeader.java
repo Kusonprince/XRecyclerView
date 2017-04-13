@@ -234,6 +234,7 @@ public class RunningBoyHeader extends LinearLayout implements BaseRefreshHeader 
             public void onAnimationUpdate(ValueAnimator animation)
             {
                 setVisibleHeight((int) animation.getAnimatedValue());
+                setBoyBoxParams();
             }
         });
         animator.start();
