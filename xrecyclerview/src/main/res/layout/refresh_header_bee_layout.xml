@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 下拉刷新视图 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+
+    <ImageView
+        android:id="@+id/pull_bee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pull_bee_animation"
+        />
+
+    <ImageView
+        android:id="@+id/pull_bee_c"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pull_bee_c_animation"
+        />
+
+    <ImageView
+        android:id="@+id/pull_flower"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pull_flower"/>
+
+    <TextView
+        android:id="@+id/pull_text"
+        android:text="松手更新..."
+        android:paddingTop="30dp"
+        android:paddingLeft="5dp"
+        android:textColor="#aab2bd"
+        android:layout_toRightOf="@id/pull_flower"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+    <!-- 箭头图像、进度条 -->
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_toLeftOf="@+id/pull_listview_refresh_tips" >-->
+
+        <!--&lt;!&ndash; 箭头 &ndash;&gt;-->
+
+        <!--<com.eelly.framework.widget.FitImageView-->
+            <!--android:id="@+id/head_arrowImageView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:src="@drawable/icon_pull_arrow_down" />-->
+
+        <!--&lt;!&ndash; 进度条 &ndash;&gt;-->
+
+        <!--<ProgressBar-->
+            <!--android:id="@+id/head_progressBar"-->
+            <!--android:layout_width="28dip"-->
+            <!--android:layout_height="28dip"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:indeterminateDrawable="@anim/update_loading_progressbar_anim"-->
+            <!--android:visibility="gone" />-->
+    <!--</FrameLayout>-->
+
+    <!--&lt;!&ndash; 提示、最近更新 &ndash;&gt;-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/pull_listview_refresh_tips"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:orientation="vertical" >-->
+
+        <!--&lt;!&ndash; 提示 &ndash;&gt;-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/head_tipsTextView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="下拉刷新"-->
+            <!--android:textColor="#ff75796f"-->
+            <!--android:textSize="15dp" />-->
+    <!--</LinearLayout>-->
+
+</RelativeLayout>
