@@ -2,9 +2,7 @@ package com.jcodecraeer.xrecyclerview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -13,11 +11,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -25,14 +21,13 @@ import android.widget.TextView;
  * Created by kuson on 17/4/13.
  */
 
-public class BeeRefreshHeader extends RelativeLayout implements BaseRefreshHeader {
+public class BeeRefreshHeader extends LinearLayout implements BaseRefreshHeader {
 
-    private RelativeLayout mContainer;
+    private LinearLayout mContainer;
     private ImageView pullBeeView;
     private ImageView pullBeeCView;
     private TextView pullTextView;
     TranslateAnimationLoading mBeeViewAnimationJump;
-    TranslateAnimation mmBeeViewBackTransformation;
     private int mState = STATE_NORMAL;
     public int mMeasuredHeight;
     int windowsWidth = 0;
@@ -50,13 +45,13 @@ public class BeeRefreshHeader extends RelativeLayout implements BaseRefreshHeade
     }
 
     private void initView() {
-        mContainer = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.refresh_header_bee_layout, null);
+        mContainer = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.refresh_header_bee_layout, null);
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         lp.setMargins(0, 0, 0, 0);
         this.setLayoutParams(lp);
         this.setPadding(0, 0, 0, 0);
 
-        addView(mContainer, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 0));
+        addView(mContainer, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0));
         setGravity(Gravity.BOTTOM);
 
         pullBeeView = (ImageView) mContainer.findViewById(R.id.pull_bee);
@@ -72,20 +67,15 @@ public class BeeRefreshHeader extends RelativeLayout implements BaseRefreshHeade
 
         measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         mMeasuredHeight = getMeasuredHeight();
+        beeWidth = pullBeeView.getMeasuredWidth();
+        beeHeight = pullBeeView.getMeasuredHeight();
 
-        if (Build.VERSION.SDK_INT >= 13) {
-            Point point = new Point();
-            ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(point);
-            windowsWidth = point.x;
-        } else {
-            windowsWidth = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth();
-        }
-        windowsWidth = windowsWidth / 2;
+        windowsWidth = DeviceUtil.getScreenWidth(getContext()) / 2;
 
     }
 
-    private void setBeeparams() {
-        if (pullBeeCView.getVisibility() == View.VISIBLE) {
+    private void setBeeparams(boolean isFinish) {
+        if (!isFinish && pullBeeCView.getVisibility() == View.VISIBLE) {
             pullBeeCView.clearAnimation();
             pullBeeCView.setVisibility(View.GONE);
         }
@@ -93,12 +83,18 @@ public class BeeRefreshHeader extends RelativeLayout implements BaseRefreshHeade
             beeWidth = pullBeeView.getWidth();
             beeHeight = pullBeeView.getHeight();
         }
-        pullBeeView.setPadding((int) ((windowsWidth - beeWidth * 1.2) * getVisibleHeight()), (int) ((beeHeight * 1.6) * getVisibleHeight() - beeHeight), 0, 0);
+        float scale = getVisibleHeight() / (float)mMeasuredHeight;
+        scale = scale > 1 ? 1 : scale;
+        if (isFinish) {
+            pullBeeCView.setPadding((int) ((windowsWidth - beeWidth * 1.2) * scale), (int) ((beeHeight * 1.6) * scale - beeHeight), 0, 0);
+        } else {
+            pullBeeView.setPadding((int) ((windowsWidth - beeWidth * 1.2) * scale), (int) ((beeHeight * 1.6) * scale - beeHeight), 0, 0);
+        }
     }
 
     @Override
     public void onMove(float delta) {
-        setBeeparams();
+        setBeeparams(false);
         if(getVisibleHeight() > 0 || delta > 0) {
             setVisibleHeight((int) delta + getVisibleHeight());
             if (mState <= STATE_RELEASE_TO_REFRESH) {
@@ -195,14 +191,14 @@ public class BeeRefreshHeader extends RelativeLayout implements BaseRefreshHeade
 
     public void setVisibleHeight(int height) {
         if (height < 0) height = 0;
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mContainer .getLayoutParams();
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mContainer .getLayoutParams();
         lp.height = height;
         Log.e("tag", "header set visible height is:" + lp.height);
         mContainer.setLayoutParams(lp);
     }
 
     public int getVisibleHeight() {
-        RelativeLayout.LayoutParams lp =  (RelativeLayout.LayoutParams)mContainer.getLayoutParams();
+        LinearLayout.LayoutParams lp =  (LinearLayout.LayoutParams)mContainer.getLayoutParams();
         Log.e("tag", "header visible height is:" + lp.height);
         return lp.height;
     }
@@ -233,30 +229,10 @@ public class BeeRefreshHeader extends RelativeLayout implements BaseRefreshHeade
     }
 
     private void onFinish() {
-        mmBeeViewBackTransformation = new TranslateAnimation(0, -(int) (windowsWidth - beeWidth * 1.2), 0, -(int) ((beeHeight * 1.6)));
-        mmBeeViewBackTransformation.setDuration(500);
-        mmBeeViewBackTransformation.setFillAfter(true);
-        mmBeeViewBackTransformation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                pullBeeView.clearAnimation();
-                pullBeeCView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        if (pullTextView.getText().toString().equals("正在更新..."))
-            pullBeeCView.startAnimation(mmBeeViewBackTransformation);
-        pullTextView.setText("松手更新...");
+        pullBeeView.clearAnimation();
         pullBeeView.setVisibility(View.GONE);
+        pullBeeCView.setVisibility(View.VISIBLE);
+        pullTextView.setText("更新完成...");
     }
 
     private void smoothScrollTo(int destHeight) {
@@ -268,6 +244,7 @@ public class BeeRefreshHeader extends RelativeLayout implements BaseRefreshHeade
             public void onAnimationUpdate(ValueAnimator animation)
             {
                 setVisibleHeight((int) animation.getAnimatedValue());
+                setBeeparams(true);
             }
         });
         animator.start();

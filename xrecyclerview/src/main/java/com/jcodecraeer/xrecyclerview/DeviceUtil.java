@@ -18,4 +18,28 @@ public class DeviceUtil {
     public static int dipToPx(Context appContext, float dpValue) {
         return (int) (dpValue * appContext.getResources().getDisplayMetrics().density + 0.5f);
     }
+
+    /**
+     * 得到屏幕的高度
+     *
+     * @param context
+     */
+    public static int getScreenHeight(Context context) {
+        if (context == null) {
+            return -1;
+        }
+        return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+    /**
+     * 得到屏幕的宽度
+     *
+     * @param context
+     */
+    public static int getScreenWidth(Context context) {
+        if (context == null) {
+            return -1;
+        }
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
 }

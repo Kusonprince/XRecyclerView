@@ -308,6 +308,7 @@ public class XRecyclerView extends RecyclerView {
                     if (mRefreshHeader.releaseAction()) {
                         if (mLoadingListener != null) {
                             mLoadingListener.onRefresh();
+                            Log.e("tag", "onRefresh is running");
                         }
                     }
                 }
