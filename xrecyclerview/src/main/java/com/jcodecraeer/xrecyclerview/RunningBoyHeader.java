@@ -86,6 +86,17 @@ public class RunningBoyHeader extends BaseRefreshHeaderView {
         Log.e("layout", "the iconTopMax is:" +iconTopMax);
     }
 
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        mRefreshBoy.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+        iconWidth = mRefreshBoy.getMeasuredWidth();
+        iconHeight = mRefreshBoy.getMeasuredHeight();
+        Log.e("layout", "here is onLayout! the mMeasuredHeight is:" + mMeasuredHeight + ", the iconWidth is:" + iconWidth + ", the iconHeight is:" + iconHeight);
+        iconTopMax = DeviceUtil.dipToPx(getContext(), 72) - iconHeight;
+        Log.e("layout", "here is onLoayout! the iconTopMax is:" +iconTopMax);
+    }
+
     public void setState(int state) {
         if (state == mState) return ;
 

@@ -69,7 +69,7 @@ public class XRecyclerView extends RecyclerView {
 
     private void init() {
         if (pullRefreshEnabled) {
-            mRefreshHeader = new RunningBoyHeader(getContext());
+            mRefreshHeader = new BeeRefreshHeader(getContext());
             //mRefreshHeader.setProgressStyle(mRefreshProgressStyle);
         }
         if (isAutoLoadMore) {

@@ -65,9 +65,21 @@ public class BeeRefreshHeader extends BaseRefreshHeaderView {
         mMeasuredHeight = getMeasuredHeight();
         beeWidth = pullBeeView.getMeasuredWidth();
         beeHeight = pullBeeView.getMeasuredHeight();
-
         windowsWidth = DeviceUtil.getScreenWidth(getContext()) / 2;
+        Log.e("params", "mMeasuredHeight is:" + mMeasuredHeight + ", beeWidth is:" + beeWidth + ", beeHeight is:" + beeHeight + "windowsWidth is:" + windowsWidth);
+    }
 
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        if (beeWidth == 0 || beeHeight ==0) {
+            pullBeeView.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+            beeWidth = pullBeeView.getMeasuredWidth();
+            beeHeight = pullBeeView.getMeasuredHeight();
+        }
+        if (windowsWidth == 0) {
+            windowsWidth = DeviceUtil.getScreenWidth(getContext()) / 2;
+        }
     }
 
     private void setBeeparams(boolean isFinish) {
@@ -75,12 +87,15 @@ public class BeeRefreshHeader extends BaseRefreshHeaderView {
             pullBeeCView.clearAnimation();
             pullBeeCView.setVisibility(View.GONE);
         }
+        Log.e("params", "before! mMeasuredHeight is:" + mMeasuredHeight + ", beeWidth is:" + beeWidth + ", beeHeight is:" + beeHeight + "windowsWidth is:" + windowsWidth);
         if (beeWidth <= 0) {
             beeWidth = pullBeeView.getWidth();
             beeHeight = pullBeeView.getHeight();
         }
         float scale = getVisibleHeight() / (float)mMeasuredHeight;
+        Log.e("params", "after! mMeasuredHeight is:" + mMeasuredHeight + ", beeWidth is:" + beeWidth + ", beeHeight is:" + beeHeight + "windowsWidth is:" + windowsWidth);
         scale = scale > 1 ? 1 : scale;
+        Log.e("params", "scale is:" + scale);
         if (isFinish) {
             pullBeeCView.setPadding((int) ((windowsWidth - beeWidth * 1.2) * scale), (int) ((beeHeight * 1.6) * scale - beeHeight), 0, 0);
         } else {

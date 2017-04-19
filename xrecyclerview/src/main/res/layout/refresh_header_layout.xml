@@ -10,7 +10,7 @@
         android:id="@+id/refresh_icon_layout"
         android:layout_width="100dp"
         android:layout_height="80dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="bottom"
         android:paddingBottom="8dp"
         >
         <ImageView
@@ -47,8 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="下拉刷新"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="bottom"
         android:layout_marginLeft="10dp"
-        />
+        android:layout_marginBottom="12dp"/>
 
 </LinearLayout>
