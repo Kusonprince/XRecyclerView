@@ -90,7 +90,7 @@ public class LinearActivity extends AppCompatActivity {
         listData = new  ArrayList<String>();
         mAdapter = new MyAdapter(listData);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.refresh();
+        //mRecyclerView.refresh();
     }
 
     @Override

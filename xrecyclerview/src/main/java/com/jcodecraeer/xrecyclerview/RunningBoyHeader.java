@@ -20,9 +20,7 @@ import android.widget.TextView;
  * Created by kuson on 17/4/11.
  */
 
-public class RunningBoyHeader extends LinearLayout implements BaseRefreshHeader {
-
-    private LinearLayout mContainer;
+public class RunningBoyHeader extends BaseRefreshHeaderView {
 
     private RelativeLayout refreshIconLayout;
 
@@ -47,16 +45,15 @@ public class RunningBoyHeader extends LinearLayout implements BaseRefreshHeader 
     private int iconTopMax = 0;
 
     public RunningBoyHeader(Context context) {
-        super(context);
-        initView();
+        this(context, null);
     }
 
     public RunningBoyHeader(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        initView();
+        super(context, attrs, R.layout.refresh_header_layout);
     }
 
-    private void initView(){
+    @Override
+    public void initView(){
         // 初始情况，设置下拉刷新view高度为0
         mContainer = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.refresh_header_layout, null);
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -81,10 +78,12 @@ public class RunningBoyHeader extends LinearLayout implements BaseRefreshHeader 
 
         iconWidth = mRefreshBoy.getMeasuredWidth();
         iconHeight = mRefreshBoy.getMeasuredHeight();
+        Log.e("layout", "the mMeasuredHeight is:" + mMeasuredHeight + ", the iconWidth is:" + iconWidth + ", the iconHeight is:" + iconHeight);
         ViewGroup.LayoutParams params = refreshIconLayout.getLayoutParams();
         params.width = iconWidth;
         refreshIconLayout.setLayoutParams(params);
         iconTopMax = DeviceUtil.dipToPx(getContext(), 72) - iconHeight;
+        Log.e("layout", "the iconTopMax is:" +iconTopMax);
     }
 
     public void setState(int state) {
@@ -152,6 +151,7 @@ public class RunningBoyHeader extends LinearLayout implements BaseRefreshHeader 
 
     @Override
     public void onMove(float delta) {
+        Log.e("params", "here is move! iconWidth is:" + iconWidth + ", iconTopMax is:" + iconTopMax);
         setBoyBoxParams();
         if(getVisibleHeight() > 0 || delta > 0) {
             setVisibleHeight((int) delta + getVisibleHeight());

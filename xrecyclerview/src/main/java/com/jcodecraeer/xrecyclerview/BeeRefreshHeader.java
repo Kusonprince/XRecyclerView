@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
@@ -21,9 +20,8 @@ import android.widget.TextView;
  * Created by kuson on 17/4/13.
  */
 
-public class BeeRefreshHeader extends LinearLayout implements BaseRefreshHeader {
+public class BeeRefreshHeader extends BaseRefreshHeaderView {
 
-    private LinearLayout mContainer;
     private ImageView pullBeeView;
     private ImageView pullBeeCView;
     private TextView pullTextView;
@@ -35,17 +33,15 @@ public class BeeRefreshHeader extends LinearLayout implements BaseRefreshHeader 
     int beeHeight = 0;
 
     public BeeRefreshHeader(Context context) {
-        super(context);
-        initView();
+        this(context, null);
     }
 
     public BeeRefreshHeader(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        initView();
+        super(context, attrs, R.layout.refresh_header_bee_layout);
     }
 
-    private void initView() {
-        mContainer = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.refresh_header_bee_layout, null);
+    @Override
+    public void initView() {
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         lp.setMargins(0, 0, 0, 0);
         this.setLayoutParams(lp);
@@ -107,6 +103,7 @@ public class BeeRefreshHeader extends LinearLayout implements BaseRefreshHeader 
         }
     }
 
+    @Override
     public void setState(int state) {
         if (state == mState) return ;
 
@@ -124,6 +121,7 @@ public class BeeRefreshHeader extends LinearLayout implements BaseRefreshHeader 
         mState = state;
     }
 
+    @Override
     public int getState() {
         return mState;
     }
@@ -187,20 +185,6 @@ public class BeeRefreshHeader extends LinearLayout implements BaseRefreshHeader 
                 setState(STATE_NORMAL);
             }
         }, 500);
-    }
-
-    public void setVisibleHeight(int height) {
-        if (height < 0) height = 0;
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mContainer .getLayoutParams();
-        lp.height = height;
-        Log.e("tag", "header set visible height is:" + lp.height);
-        mContainer.setLayoutParams(lp);
-    }
-
-    public int getVisibleHeight() {
-        LinearLayout.LayoutParams lp =  (LinearLayout.LayoutParams)mContainer.getLayoutParams();
-        Log.e("tag", "header visible height is:" + lp.height);
-        return lp.height;
     }
 
     private void onRefreshing() {

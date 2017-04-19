@@ -34,7 +34,7 @@ public class XRecyclerView extends RecyclerView {
     private float mFirstY = -1;
     private static final float DRAG_RATE = 3;
     private LoadingListener mLoadingListener;
-    private BeeRefreshHeader mRefreshHeader;
+    private BaseRefreshHeaderView mRefreshHeader;
     private boolean pullRefreshEnabled = true;
     private boolean loadingMoreEnabled = true;
     //下面的ItemViewType是保留值(ReservedItemViewType),如果用户的adapter与它们重复将会强制抛出异常。不过为了简化,我们检测到重复时对用户的提示是ItemViewType必须小于10000
@@ -69,7 +69,7 @@ public class XRecyclerView extends RecyclerView {
 
     private void init() {
         if (pullRefreshEnabled) {
-            mRefreshHeader = new BeeRefreshHeader(getContext());
+            mRefreshHeader = new RunningBoyHeader(getContext());
             //mRefreshHeader.setProgressStyle(mRefreshProgressStyle);
         }
         if (isAutoLoadMore) {
