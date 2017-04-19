@@ -69,8 +69,9 @@ public class XRecyclerView extends RecyclerView {
 
     private void init() {
         if (pullRefreshEnabled) {
-            mRefreshHeader = new BeeRefreshHeader(getContext());
-            //mRefreshHeader.setProgressStyle(mRefreshProgressStyle);
+            mRefreshHeader = new ArrowRefreshHeader(getContext());
+            if (mRefreshHeader instanceof ArrowRefreshHeader)
+                ((ArrowRefreshHeader)mRefreshHeader).setProgressStyle(mRefreshProgressStyle);
         }
         if (isAutoLoadMore) {
             LoadingMoreFooter footView = new LoadingMoreFooter(getContext());
@@ -160,7 +161,7 @@ public class XRecyclerView extends RecyclerView {
         setNoMore(false);
     }
 
-    public void setRefreshHeader(BeeRefreshHeader refreshHeader) {
+    public void setRefreshHeader(BaseRefreshHeaderView refreshHeader) {
         mRefreshHeader = refreshHeader;
     }
 
@@ -179,8 +180,8 @@ public class XRecyclerView extends RecyclerView {
 
     public void setRefreshProgressStyle(int style) {
         mRefreshProgressStyle = style;
-        if (mRefreshHeader != null) {
-            //mRefreshHeader.setProgressStyle(style);
+        if (mRefreshHeader != null && mRefreshHeader instanceof ArrowRefreshHeader) {
+            ((ArrowRefreshHeader)mRefreshHeader).setProgressStyle(style);
         }
     }
 
@@ -193,7 +194,8 @@ public class XRecyclerView extends RecyclerView {
 
     public void setArrowImageView(int resId) {
         if (mRefreshHeader != null) {
-            //mRefreshHeader.setArrowImageView(resId);
+            if (mRefreshHeader instanceof ArrowRefreshHeader)
+                ((ArrowRefreshHeader)mRefreshHeader).setArrowImageView(resId);
         }
     }
 

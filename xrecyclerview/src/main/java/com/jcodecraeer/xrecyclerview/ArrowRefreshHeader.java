@@ -20,9 +20,8 @@ import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
 
 import java.util.Date;
 
-public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeader {
+public class ArrowRefreshHeader extends BaseRefreshHeaderView {
 
-	private LinearLayout mContainer;
 	private ImageView mArrowImageView;
 	private SimpleViewSwitcher mProgressBar;
 	private TextView mStatusTextView;
@@ -38,8 +37,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 	public int mMeasuredHeight;
 
 	public ArrowRefreshHeader(Context context) {
-		super(context);
-		initView();
+		this(context, null);
 	}
 
 	/**
@@ -47,14 +45,12 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 	 * @param attrs
 	 */
 	public ArrowRefreshHeader(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		initView();
+		super(context, attrs, R.layout.listview_header);
 	}
 
-	private void initView() {
+	@Override
+	public void initView() {
 		// 初始情况，设置下拉刷新view高度为0
-		mContainer = (LinearLayout) LayoutInflater.from(getContext()).inflate(
-				R.layout.listview_header, null);
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         lp.setMargins(0, 0, 0, 0);
 		this.setLayoutParams(lp);
