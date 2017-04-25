@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jcodecraeer.xrecyclerview.NormalRefreshHeaderView;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.RunningBoyHeader;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -39,7 +40,7 @@ public class LinearActivity extends AppCompatActivity {
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
-        //mRecyclerView.setRefreshHeader(new RunningBoyHeader(this));
+        mRecyclerView.setRefreshHeader(new NormalRefreshHeaderView(this));
 
         View header = LayoutInflater.from(this).inflate(R.layout.recyclerview_header, (ViewGroup)findViewById(android.R.id.content),false);
         mRecyclerView.addHeaderView(header);
